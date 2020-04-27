@@ -1,12 +1,24 @@
-name: 'Container Action Template'
-description: 'Get started with Container actions'
-author: 'GitHub'
+name: 'Multiple Repository Dispatch'
+description: 'Trigger dependent repo builds using multiple repository_dispatch events'
+author: '1Q1'
 inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+  repos:
+    description: 'The repositories target.'
+    required: true
+  token:
+    description: 'GitHub Personal Access Token'
+    required: true
+  user:
+    description: 'GitHub username'
+    required: true
+  action:
+    description: "Event action"
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.myInput }}
+    - ${{ inputs.user }}
+    - ${{ inputs.token }}
+    - ${{ inputs.action }}
+    - ${{ inputs.repos }}
