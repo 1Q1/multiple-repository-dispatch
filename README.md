@@ -1,5 +1,23 @@
-# Container Action Template
+# Trigger rebuilds by using repository dispatch events
 
-To get started, click the `Use this template` button on this repository [which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+## Usage 
 
-For info on how to build your first Container action, see the [toolkit docs folder](https://github.com/actions/toolkit/blob/master/docs/container-action.md).
+```
+name: My workflow
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+        - name: 'Repository dispatch',
+          uses: 1Q1/multiple-repository-dispatch,
+          with:
+            token: '${{ secrets.TOKEN }}',
+            user: 'john.smith@example.com',
+            action: 'example-action'
+            repos: |
+                'org/repo'
+                'org/another_repo'
+```
